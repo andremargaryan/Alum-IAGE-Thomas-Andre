@@ -6,9 +6,9 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const token = authService.getToken();
 
-  // On n'ajoute pas le token sur le login ou la création de compte
   const isPublicAuthRequest =
     req.url.includes('/api/auth/login') ||
+    req.url.includes('/api/auth/register') ||
     (req.url.endsWith('/users') && req.method === 'POST');
 
   if (token && !isPublicAuthRequest) {

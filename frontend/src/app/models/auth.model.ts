@@ -5,6 +5,15 @@ export interface LoginRequest {
   motDePasse: string;
 }
 
+export interface RegisterRequest {
+  nom: string;
+  prenom: string;
+  email: string;
+  motDePasse: string;
+  ville: string;
+  role: Role;
+}
+
 export interface AuthResponse {
   token: string;
   expireDansMinutes: number;

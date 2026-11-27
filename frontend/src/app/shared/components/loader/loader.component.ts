@@ -16,15 +16,15 @@ export class LoaderComponent implements OnInit {
   ngOnInit(): void {
     const interval = setInterval(() => {
       this.progress.update((val) => {
-        const next = val + Math.floor(Math.random() * 18) + 12;
+        const next = val + Math.floor(Math.random() * 22) + 18;
         if (next >= 100) {
           clearInterval(interval);
-          setTimeout(() => this.fadingOut.set(true), 180);
-          setTimeout(() => this.visible.set(false), 750);
+          setTimeout(() => this.fadingOut.set(true), 140);
+          setTimeout(() => this.visible.set(false), 620);
           return 100;
         }
         return next;
       });
-    }, 110);
+    }, 85);
   }
 }

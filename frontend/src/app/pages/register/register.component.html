@@ -1,1 +1,79 @@
-<div class="container"><h2>Inscription (ALUMNI-17 à venir)</h2></div>
+<section class="centered-stage">
+  <div class="eyebrow">
+    <span class="gold-dot"></span>
+    <span>Rejoindre la communauté MIAGE</span>
+  </div>
+
+  <h1 class="stage-title">
+    Créer votre accès <span class="serif-italic text-sorbonne-accent">Alum-IAGE</span>
+  </h1>
+
+  <form (ngSubmit)="onSubmit()" class="centered-form">
+    <div class="inline-row">
+      <div class="field">
+        <label for="prenom">Prénom</label>
+        <input id="prenom" name="prenom" type="text" class="input-sleek" placeholder="Thomas" [(ngModel)]="prenom" required />
+      </div>
+
+      <div class="field">
+        <label for="nom">Nom</label>
+        <input id="nom" name="nom" type="text" class="input-sleek" placeholder="Le Chaix" [(ngModel)]="nom" required />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="reg-email">Adresse email</label>
+      <input id="reg-email" name="email" type="email" class="input-sleek" placeholder="prenom.nom@etu.univ-paris1.fr" [(ngModel)]="email" required />
+    </div>
+
+    <div class="inline-row">
+      <div class="field">
+        <label for="ville">Ville</label>
+        <input id="ville" name="ville" type="text" class="input-sleek" placeholder="Paris" [(ngModel)]="ville" />
+      </div>
+
+      <div class="field">
+        <label for="role">Statut</label>
+        <select id="role" name="role" class="input-sleek" [(ngModel)]="role">
+          <option value="ETUDIANT">Étudiant / Alumni</option>
+          <option value="ORGANISATEUR">Organisateur</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="inline-row">
+      <div class="field">
+        <label for="reg-password">Mot de passe</label>
+        <input id="reg-password" name="motDePasse" type="password" class="input-sleek" placeholder="6 caractères min." [(ngModel)]="motDePasse" required />
+      </div>
+
+      <div class="field">
+        <label for="confirm-password">Confirmation</label>
+        <input id="confirm-password" name="confirmPassword" type="password" class="input-sleek" placeholder="••••••••" [(ngModel)]="confirmPassword" required />
+      </div>
+    </div>
+
+    @if (errorMessage()) {
+      <div class="alert-error">{{ errorMessage() }}</div>
+    }
+
+    @if (successMessage()) {
+      <div class="alert-success">{{ successMessage() }}</div>
+    }
+
+    <button type="submit" class="btn-sorbonne submit-cta" [disabled]="loading()">
+      @if (loading()) {
+        <span class="spinner"></span> Création en cours...
+      } @else {
+        Créer mon compte →
+      }
+    </button>
+  </form>
+
+  <div class="stage-divider"></div>
+
+  <p class="switch-link">
+    Déjà inscrit ?
+    <a routerLink="/login">Se connecter</a>
+  </p>
+</section>

@@ -4,25 +4,19 @@
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 1rem 1.5rem;
-  pointer-events: none;
+  padding: 0.85rem 2rem;
+  background: linear-gradient(to bottom, rgba(5, 7, 15, 0.82), transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .navbar-inner {
-  pointer-events: auto;
-  max-width: 1180px;
+  max-width: 1120px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.65rem 1.25rem;
-  background: rgba(8, 10, 22, 0.62);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.7);
 }
 
 .brand-link {
@@ -35,29 +29,28 @@
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.3rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 999px;
 
   a {
     color: #94a3b8;
     text-decoration: none;
-    font-size: 0.88rem;
+    font-size: 0.84rem;
     font-weight: 500;
-    padding: 0.45rem 1.1rem;
+    padding: 0.38rem 1rem;
     border-radius: 999px;
-    transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    transition: color 0.25s ease, background-color 0.25s ease;
 
     &:hover {
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.07);
     }
 
     &.active {
       color: #ffffff;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(124, 58, 237, 0.4));
-      box-shadow: inset 0 0 0 1px rgba(167, 139, 250, 0.35);
+      background: rgba(59, 130, 246, 0.2);
+      box-shadow: inset 0 0 0 1px rgba(226, 184, 87, 0.35);
     }
   }
 }
@@ -65,54 +58,57 @@
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.7rem;
+}
+
+.nav-cta {
+  padding: 0.45rem 1.15rem;
+  font-size: 0.83rem;
 }
 
 .user-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.9rem;
-  background: rgba(255, 255, 255, 0.05);
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #e2e8f0;
 }
 
 .status-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #34d399;
-  box-shadow: 0 0 8px #34d399;
 }
 
 .role-tag {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #c084fc;
-  background: rgba(192, 132, 252, 0.14);
-  padding: 0.15rem 0.5rem;
+  color: var(--sorbonne-gold);
+  background: var(--sorbonne-gold-dim);
+  padding: 0.12rem 0.45rem;
   border-radius: 999px;
 }
 
 .btn-logout {
-  background: rgba(239, 68, 68, 0.14);
+  background: transparent;
   color: #fca5a5;
-  border: 1px solid rgba(239, 68, 68, 0.32);
-  padding: 0.5rem 1rem;
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  padding: 0.4rem 0.9rem;
   border-radius: 999px;
   font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.22s ease;
 
   &:hover {
-    background: #ef4444;
+    background: rgba(239, 68, 68, 0.18);
+    border-color: rgba(239, 68, 68, 0.5);
     color: #ffffff;
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.45);
   }
 }

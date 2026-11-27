@@ -2,7 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { AuthResponse, LoginRequest, Role } from '../../models/auth.model';
+import { AuthResponse, LoginRequest, RegisterRequest, Role } from '../../models/auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,9 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
 
-  private readonly API_URL = 'http://localhost:8080/api/auth';
+  private readonly HOST_URL = 'http://localhost:8080';
   private readonly STORAGE_KEY = 'alumni_auth';
 
-  // État réactif de l'utilisateur connecté
   private readonly currentUserSignal = signal<AuthResponse | null>(this.loadFromStorage());
 
   readonly currentUser = this.currentUserSignal.asReadonly();
@@ -22,12 +21,16 @@ export class AuthService {
   readonly userRole = computed<Role | null>(() => this.currentUserSignal()?.role ?? null);
 
   login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/login`, credentials).pipe(
+    return this.http.post<AuthResponse>(`${this.HOST_URL}/api/auth/login`, credentials).pipe(
       tap((response) => {
         localStorage.setItem(this.STORAGE_KEY, JSON.stringify(response));
         this.currentUserSignal.set(response);
       })
     );
+  }
+
+  register(payload: RegisterRequest): Observable<unknown> {
+    return this.http.post(`${this.HOST_URL}/users`, payload);
   }
 
   logout(): void {
