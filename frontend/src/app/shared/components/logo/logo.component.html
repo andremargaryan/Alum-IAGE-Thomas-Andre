@@ -1,0 +1,23 @@
+<div class="brand-logo" [class]="size()">
+  <div class="logo-mark">
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="alumGrad" x1="6" y1="42" x2="42" y2="6" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#38bdf8" />
+          <stop offset="50%" stop-color="#818cf8" />
+          <stop offset="100%" stop-color="#e879f9" />
+        </linearGradient>
+      </defs>
+      <!-- Lame principale diagonale géométrique -->
+      <path d="M9 36L24.5 9H33.5L18 36H9Z" fill="url(#alumGrad)" />
+      <!-- Facette secondaire formant le prisme "A" futuriste -->
+      <path d="M24.5 27H39L32 39.5V33H21L24.5 27Z" fill="#FFFFFF" />
+    </svg>
+  </div>
+
+  @if (showText()) {
+    <span class="logo-text">
+      ALUM<span class="logo-accent">-IAGE</span>
+    </span>
+  }
+</div>

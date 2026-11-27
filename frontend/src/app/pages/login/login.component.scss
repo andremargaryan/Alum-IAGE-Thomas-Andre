@@ -1,0 +1,230 @@
+.hero-login {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: center;
+  padding: 1.5rem 0 3.5rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0.9rem 0.35rem 0.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    border-color: rgba(124, 58, 237, 0.5);
+    transform: translateY(-1px);
+  }
+}
+
+.badge-new {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.hero-subtitle {
+  color: #94a3b8;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 520px;
+  margin-bottom: 2.25rem;
+}
+
+.stats-row {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  strong {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: #ffffff;
+  }
+  span {
+    font-size: 0.82rem;
+    color: #64748b;
+  }
+}
+
+.stat-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.login-card {
+  padding: 2.25rem;
+}
+
+.card-header {
+  margin-bottom: 1.75rem;
+
+  h2 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+  p {
+    color: #94a3b8;
+    font-size: 0.9rem;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+
+  label {
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: #cbd5e1;
+  }
+}
+
+.error-banner {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 0.4rem;
+}
+
+.spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.switch-auth {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #94a3b8;
+
+  a {
+    color: #c084fc;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 0.25rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Bento grid en bas */
+.bento-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1rem;
+
+  @media (max-width: 850px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bento-card {
+  h3 {
+    font-size: 1.08rem;
+    font-weight: 600;
+    margin-bottom: 0.55rem;
+    color: #f8fafc;
+  }
+  p {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #94a3b8;
+  }
+}
+
+.bento-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 1.1rem;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+  .bento-card:hover & {
+    transform: scale(1.12) rotate(6deg);
+  }
+}
+
+.icon-blue {
+  background: rgba(37, 99, 235, 0.18);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+  box-shadow: 0 0 24px rgba(37, 99, 235, 0.3);
+}
+
+.icon-violet {
+  background: rgba(124, 58, 237, 0.18);
+  border: 1px solid rgba(192, 132, 252, 0.35);
+  color: #c084fc;
+  box-shadow: 0 0 24px rgba(124, 58, 237, 0.3);
+}
+
+.icon-amber {
+  background: rgba(249, 115, 22, 0.16);
+  border: 1px solid rgba(251, 146, 60, 0.35);
+  color: #fb923c;
+  box-shadow: 0 0 24px rgba(249, 115, 22, 0.28);
+}

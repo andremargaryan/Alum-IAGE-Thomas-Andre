@@ -1,27 +1,34 @@
-<header class="navbar">
-  <div class="nav-brand">
-    <a routerLink="/events">🎓 Alum-IAGE</a>
+<header class="navbar-shell">
+  <div class="navbar-inner">
+    <a class="brand-link" routerLink="/events">
+      <app-logo size="md" />
+    </a>
+
+    @if (authService.isLoggedIn()) {
+      <nav class="nav-pill">
+        <a routerLink="/events" routerLinkActive="active">Événements</a>
+        <a routerLink="/forum" routerLinkActive="active">Forum</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="user-chip">
+          <span class="status-dot"></span>
+          <span>{{ authService.currentUser()?.prenom }}</span>
+          <span class="role-tag">{{ authService.userRole() }}</span>
+        </div>
+        <button type="button" class="btn-logout" (click)="authService.logout()">
+          Déconnexion
+        </button>
+      </div>
+    } @else {
+      <nav class="nav-pill">
+        <a routerLink="/login" routerLinkActive="active">Connexion</a>
+        <a routerLink="/register" routerLinkActive="active">Inscription</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a routerLink="/register" class="btn-pill-white">Rejoindre</a>
+      </div>
+    }
   </div>
-
-  @if (authService.isLoggedIn()) {
-    <nav class="nav-links">
-      <a routerLink="/events" routerLinkActive="active">Événements</a>
-      <a routerLink="/forum" routerLinkActive="active">Forum</a>
-    </nav>
-
-    <div class="nav-user">
-      <span class="user-badge">
-        {{ authService.currentUser()?.prenom }} {{ authService.currentUser()?.nom }}
-        <small>({{ authService.userRole() }})</small>
-      </span>
-      <button type="button" class="btn-logout" (click)="authService.logout()">
-        Déconnexion
-      </button>
-    </div>
-  } @else {
-    <nav class="nav-links">
-      <a routerLink="/login" routerLinkActive="active">Connexion</a>
-      <a routerLink="/register" routerLinkActive="active">Inscription</a>
-    </nav>
-  }
 </header>

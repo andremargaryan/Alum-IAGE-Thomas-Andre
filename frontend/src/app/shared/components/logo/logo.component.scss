@@ -1,0 +1,49 @@
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  user-select: none;
+  cursor: pointer;
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+
+    svg {
+      display: block;
+    }
+  }
+
+  &:hover .logo-mark {
+    transform: scale(1.08) rotate(-3deg);
+    filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.75));
+  }
+
+  .logo-text {
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+  }
+
+  .logo-accent {
+    font-weight: 500;
+    color: #a5b4fc;
+  }
+
+  &.sm {
+    .logo-mark svg { width: 26px; height: 26px; }
+    .logo-text { font-size: 0.95rem; }
+  }
+
+  &.md {
+    .logo-mark svg { width: 32px; height: 32px; }
+    .logo-text { font-size: 1.1rem; }
+  }
+
+  &.lg {
+    .logo-mark svg { width: 56px; height: 56px; }
+    .logo-text { font-size: 1.75rem; }
+  }
+}

@@ -1,0 +1,20 @@
+@if (visible()) {
+  <div class="loader-overlay" [class.fade-out]="fadingOut()">
+    <div class="loader-orb"></div>
+
+    <div class="loader-content">
+      <div class="logo-pulse">
+        <app-logo size="lg" />
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-bar" [style.width.%]="progress()"></div>
+      </div>
+
+      <div class="loader-meta">
+        <span>Initialisation du réseau MIAGE</span>
+        <span class="loader-percent">{{ progress() }}%</span>
+      </div>
+    </div>
+  </div>
+}

@@ -1,1 +1,110 @@
-<div class="container"><h2>Connexion (ALUMNI-17 à venir)</h2></div>
+<section class="hero-login">
+  <!-- Colonne gauche : Identité & Accroche -->
+  <div class="hero-copy">
+    <div class="badge-pill">
+      <span class="badge-new">MIAGE</span>
+      <span>Réseau Officiel Paris 1 Panthéon-Sorbonne →</span>
+    </div>
+
+    <h1 class="hero-title">
+      Connectez votre avenir <br />
+      avec le réseau <span class="serif-italic text-gradient">Alum-IAGE</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      Accédez aux conférences exclusives, échangez avec les anciens diplômés sur le forum
+      et développez vos opportunités de carrière en un seul espace.
+    </p>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <strong>+1 200</strong>
+        <span>Alumni actifs</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <strong>45+</strong>
+        <span>Événements / an</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <strong>100%</strong>
+        <span>Communauté MIAGE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Colonne droite : Carte Connexion Glassmorphism -->
+  <div class="glass-card login-card">
+    <div class="card-header">
+      <h2>Connexion</h2>
+      <p>Accédez à votre espace membre</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <div class="field">
+        <label for="email">Adresse email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          class="input-dark"
+          placeholder="prenom.nom@etu.univ-paris1.fr"
+          [(ngModel)]="email"
+          required
+        />
+      </div>
+
+      <div class="field">
+        <label for="password">Mot de passe</label>
+        <input
+          id="password"
+          name="motDePasse"
+          type="password"
+          class="input-dark"
+          placeholder="••••••••"
+          [(ngModel)]="motDePasse"
+          required
+        />
+      </div>
+
+      @if (errorMessage()) {
+        <div class="error-banner">{{ errorMessage() }}</div>
+      }
+
+      <button type="submit" class="btn-glow submit-btn" [disabled]="loading()">
+        @if (loading()) {
+          <span class="spinner"></span> Connexion en cours...
+        } @else {
+          Se connecter →
+        }
+      </button>
+    </form>
+
+    <p class="switch-auth">
+      Pas encore inscrit ?
+      <a routerLink="/register">Créer un compte</a>
+    </p>
+  </div>
+</section>
+
+<!-- Section Bento Cards interactives en dessous -->
+<section class="bento-section">
+  <div class="glass-card bento-card">
+    <div class="bento-icon icon-blue">✦</div>
+    <h3>Événements & Afterworks</h3>
+    <p>Inscrivez-vous en un clic aux conférences tech, soirées networking et galas avec gestion de liste d'attente.</p>
+  </div>
+
+  <div class="glass-card bento-card">
+    <div class="bento-icon icon-violet">◈</div>
+    <h3>Forum & Entraide</h3>
+    <p>Partagez vos retours d'expérience, posez vos questions d'alternance et échangez directement par commentaires.</p>
+  </div>
+
+  <div class="glass-card bento-card">
+    <div class="bento-icon icon-amber">⚡</div>
+    <h3>Alertes Temps Réel</h3>
+    <p>Recevez des notifications instantanées dès qu'un sujet vous mentionne ou qu'une place se libère.</p>
+  </div>
+</section>
