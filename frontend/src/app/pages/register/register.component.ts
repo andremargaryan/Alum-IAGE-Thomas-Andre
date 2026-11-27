@@ -2,7 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
-import { Role } from '../../models/auth.model';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +18,6 @@ export class RegisterComponent {
   nom = '';
   email = '';
   ville = 'Paris';
-  role: Role = 'ETUDIANT';
   motDePasse = '';
   confirmPassword = '';
 
@@ -55,7 +53,7 @@ export class RegisterComponent {
         email: this.email.trim(),
         motDePasse: this.motDePasse,
         ville: this.ville.trim(),
-        role: this.role
+        role: 'ETUDIANT'
       })
       .subscribe({
         next: () => {
