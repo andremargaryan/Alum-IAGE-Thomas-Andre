@@ -1,1 +1,261 @@
-<div class="container"><h2>Événements Alumni (ALUMNI-20 à venir)</h2></div>
+<section class="events-page">
+  <header class="events-hero">
+    <div class="eyebrow">
+      <span class="gold-dot"></span>
+      <span>Vie du réseau Sorbonne MIAGE</span>
+    </div>
+    <h1 class="page-title">
+      Événements <span class="serif-italic text-sorbonne-accent">Alumni</span>
+    </h1>
+    <p class="page-subtitle">
+      Conférences, afterworks et ateliers : suivez les places disponibles en direct et réservez votre place.
+    </p>
+  </header>
+
+  <form class="filters-bar" (ngSubmit)="onSearch()">
+    <div class="filter-inputs">
+      <input
+        type="text"
+        class="input-sleek"
+        name="motCle"
+        [(ngModel)]="motCle"
+        placeholder="Rechercher par titre ou mot-clé..."
+        aria-label="Rechercher par mot-clé"
+      />
+      <input
+        type="text"
+        class="input-sleek"
+        name="lieu"
+        [(ngModel)]="lieu"
+        placeholder="Filtrer par lieu (ex: Paris)..."
+        aria-label="Filtrer par lieu"
+      />
+      <button type="submit" class="btn-sorbonne btn-filter">Filtrer</button>
+    </div>
+
+    <div class="filter-tabs">
+      <button
+        type="button"
+        class="tab-pill"
+        [class.active]="aVenir"
+        (click)="onToggleUpcoming(true)"
+      >
+        À venir
+      </button>
+      <button
+        type="button"
+        class="tab-pill"
+        [class.active]="!aVenir"
+        (click)="onToggleUpcoming(false)"
+      >
+        Tous les événements
+      </button>
+
+      @if (hasActiveFilters()) {
+        <button type="button" class="btn-reset" (click)="resetFilters()">
+          Réinitialiser
+        </button>
+      }
+    </div>
+  </form>
+
+  @if (errorMessage()) {
+    <div class="alert-error" role="alert">{{ errorMessage() }}</div>
+  }
+
+  @if (loading()) {
+    <div class="loading-state">
+      <span class="spinner"></span>
+      <span>Chargement des événements...</span>
+    </div>
+  } @else if (events().length === 0) {
+    <div class="empty-state">
+      <p class="empty-title">Aucun événement trouvé</p>
+      <p class="empty-subtitle">
+        Essayez de modifier vos filtres ou affichez tous les événements.
+      </p>
+      @if (aVenir) {
+        <button type="button" class="btn-secondary" (click)="onToggleUpcoming(false)">
+          Voir les événements passés
+        </button>
+      }
+    </div>
+  } @else {
+    <div class="events-grid">
+      @for (event of events(); track event.id) {
+        @let myStatus = getMyStatus(event.id);
+        @let closed = isClosed(event);
+        @let tone = getGaugeTone(event);
+
+        <article class="event-card" [class.is-closed]="closed">
+          <div class="card-top">
+            <div class="badge-group">
+              <span class="category-badge">{{ event.categorieLibelle }}</span>
+              @if (closed) {
+                <span class="status-badge closed">Terminé</span>
+              } @else if (myStatus?.statut === 'INSCRIT') {
+                <span class="status-badge inscrit">Inscrit</span>
+              } @else if (myStatus?.statut === 'EN_ATTENTE') {
+                <span class="status-badge waitlist">
+                  File d'attente · #{{ myStatus?.rang ?? 1 }}
+                </span>
+              }
+            </div>
+            <span class="author-tag">Par {{ event.auteurNom }}</span>
+          </div>
+
+          <div class="card-body">
+            <h2 class="event-title">{{ event.titre }}</h2>
+            <p class="event-description">{{ event.description }}</p>
+
+            <div class="event-meta">
+              <div class="meta-row">
+                <span class="meta-label">Date</span>
+                <span class="meta-value">{{ formatDate(event.dateEvenement) }}</span>
+              </div>
+              @if (event.lieu || event.adresse) {
+                <div class="meta-row">
+                  <span class="meta-label">Lieu</span>
+                  <span class="meta-value">
+                    {{ event.lieu }}
+                    @if (event.lieu && event.adresse) { — }
+                    {{ event.adresse }}
+                  </span>
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="gauge-box">
+            @if (event.capaciteMax !== null) {
+              <div class="gauge-header">
+                <span class="gauge-count">
+                  <strong>{{ event.nombreInscrits }}</strong> / {{ event.capaciteMax }} inscrits
+                </span>
+                <span class="gauge-remaining" [class]="'tone-' + tone">
+                  @if (event.complet) {
+                    Complet ({{ event.tauxRemplissage ?? 100 }}%)
+                  } @else {
+                    {{ event.placesRestantes }} place{{ (event.placesRestantes ?? 0) > 1 ? 's' : '' }} restante{{ (event.placesRestantes ?? 0) > 1 ? 's' : '' }}
+                  }
+                </span>
+              </div>
+              <div
+                class="gauge-track"
+                role="progressbar"
+                [attr.aria-valuenow]="event.tauxRemplissage ?? 0"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <div
+                  class="gauge-fill"
+                  [class]="'tone-' + tone"
+                  [style.width.%]="event.tauxRemplissage ?? 0"
+                ></div>
+              </div>
+            } @else {
+              <div class="gauge-header">
+                <span class="gauge-count">
+                  <strong>{{ event.nombreInscrits }}</strong> inscrit{{ event.nombreInscrits > 1 ? 's' : '' }}
+                </span>
+                <span class="gauge-remaining tone-unlimited">Places illimitées</span>
+              </div>
+            }
+          </div>
+
+          @if (feedbackMessage()?.eventId === event.id) {
+            <div class="card-feedback" [class]="'type-' + feedbackMessage()?.type">
+              {{ feedbackMessage()?.text }}
+            </div>
+          }
+
+          <div class="card-actions">
+            @if (closed) {
+              <button type="button" class="btn-secondary action-btn" disabled>
+                Inscriptions fermées
+              </button>
+            } @else if (myStatus?.statut === 'INSCRIT') {
+              <button
+                type="button"
+                class="btn-danger-outline action-btn"
+                [disabled]="isPending(event.id)"
+                (click)="onUnregister(event)"
+              >
+                @if (isPending(event.id)) {
+                  <span class="spinner"></span>
+                  <span>Traitement...</span>
+                } @else {
+                  <span>Se désinscrire</span>
+                }
+              </button>
+            } @else if (myStatus?.statut === 'EN_ATTENTE') {
+              <button
+                type="button"
+                class="btn-warning-outline action-btn"
+                [disabled]="isPending(event.id)"
+                (click)="onUnregister(event)"
+              >
+                @if (isPending(event.id)) {
+                  <span class="spinner"></span>
+                  <span>Traitement...</span>
+                } @else {
+                  <span>Quitter la file d'attente</span>
+                }
+              </button>
+            } @else {
+              <button
+                type="button"
+                class="btn-sorbonne action-btn"
+                [disabled]="isPending(event.id)"
+                (click)="onRegister(event)"
+              >
+                @if (isPending(event.id)) {
+                  <span class="spinner"></span>
+                  <span>Inscription...</span>
+                } @else if (event.complet) {
+                  <span>Rejoindre la file d'attente</span>
+                } @else {
+                  <span>S'inscrire</span>
+                }
+              </button>
+            }
+
+            <button
+              type="button"
+              class="btn-ghost"
+              (click)="toggleParticipants(event.id)"
+            >
+              {{ isParticipantsOpen(event.id) ? 'Masquer inscrits' : 'Voir inscrits' }}
+            </button>
+          </div>
+
+          @if (isParticipantsOpen(event.id)) {
+            <div class="participants-panel">
+              @if (isParticipantsLoading(event.id)) {
+                <p class="participants-muted">Chargement des participants...</p>
+              } @else if (getParticipants(event.id); as details) {
+                <div class="participants-header">
+                  <span>Participants confirmés ({{ details.participants.length }})</span>
+                  @if (details.nombreEnAttente > 0) {
+                    <span class="waitlist-count">
+                      {{ details.nombreEnAttente }} en attente
+                    </span>
+                  }
+                </div>
+                @if (details.participants.length === 0) {
+                  <p class="participants-muted">Aucun inscrit pour le moment.</p>
+                } @else {
+                  <ul class="participants-list">
+                    @for (p of details.participants; track $index) {
+                      <li>{{ p.prenom }} {{ p.nom }}</li>
+                    }
+                  </ul>
+                }
+              }
+            </div>
+          }
+        </article>
+      }
+    </div>
+  }
+</section>

@@ -2,6 +2,7 @@ services:
   backend:
     build: ./backend
     container_name: alum_iage_backend
+    restart: unless-stopped
     ports:
       - "8080:8080"
     environment:
